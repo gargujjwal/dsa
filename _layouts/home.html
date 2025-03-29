@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<div class="home">
+  <h1>{{ page.title }}</h1>
+
+  {{ content }}
+
+  <div class="section-container">
+    <h2>Directory Structure</h2>
+    <ul class="directory-tree">
+      {% assign top_level_dirs = site.pages | map: "path" | map_exp: "path",
+      "path | split: '/' | first" | uniq %} {% for dir in top_level_dirs %} {%
+      unless dir == "_layouts" or dir == "_includes" or dir == "_plugins" or dir
+      == "assets" or dir contains "." %}
+      <li>
+        <a href="{{ dir | relative_url }}"
+          >{{ dir | split: '-' | map: 'capitalize' | join: ' ' }}</a
+        >
+      </li>
+      {% endunless %} {% endfor %}
+    </ul>
+  </div>
+</div>

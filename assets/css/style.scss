@@ -1,0 +1,52 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+// Custom styles
+.problem-list {
+  margin-top: 2rem;
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      background-color: #f5f5f5;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
+
+      a {
+        display: block;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.directory-tree {
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    margin-bottom: 0.75rem;
+
+    a {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #0366d6;
+      color: white;
+      border-radius: 4px;
+      text-decoration: none;
+
+      &:hover {
+        background-color: #035fc7;
+      }
+    }
+  }
+}
