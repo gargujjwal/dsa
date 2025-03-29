@@ -1,0 +1,176 @@
+{
+  "main": {
+    "id": "a4bbc11e4f9b7a32",
+    "type": "split",
+    "children": [
+      {
+        "id": "9bffd03a18012b48",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8d81a7adfbccd106",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "sheets/apna-college-dsa-sheet/arrays/kth-largest-element-in-array.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "kth-largest-element-in-array"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d073b4ffdef58404",
+    "type": "split",
+    "children": [
+      {
+        "id": "9ce0485681f17fae",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "365e2fcdcf08e4bb",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "f2b32013d75dc083",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "3f983e94db9c889d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "fa59c005f2f7bf5b",
+    "type": "split",
+    "children": [
+      {
+        "id": "95d02fac871fece7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c1324433563f0b0a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "sheets/apna-college-dsa-sheet/arrays/kth-largest-element-in-array.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for kth-largest-element-in-array"
+            }
+          },
+          {
+            "id": "2c636ea2ee45e3e8",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "sheets/apna-college-dsa-sheet/arrays/kth-largest-element-in-array.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from kth-largest-element-in-array"
+            }
+          },
+          {
+            "id": "687c3632221bfdcf",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "db4b10881028d291",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "sheets/apna-college-dsa-sheet/arrays/kth-largest-element-in-array.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of kth-largest-element-in-array"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "8d81a7adfbccd106",
+  "lastOpenFiles": [
+    "sheets/apna-college-dsa-sheet/arrays/kth-largest-element-in-array.md~"
+  ]
+}
