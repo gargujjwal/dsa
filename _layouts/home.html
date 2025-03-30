@@ -8,18 +8,41 @@ layout: default
   {{ content }}
 
   <div class="section-container">
-    <h2>Directory Structure</h2>
+    <h2>Explore DSA Problems</h2>
     <ul class="directory-tree">
       {% assign top_level_dirs = site.pages | map: "path" | map_exp: "path",
       "path | split: '/' | first" | uniq %} {% for dir in top_level_dirs %} {%
       unless dir == "_layouts" or dir == "_includes" or dir == "_plugins" or dir
-      == "assets" or dir contains "." %}
+      == "assets" or dir contains "." or dir == "_site" %}
       <li>
-        <a href="{{ dir | relative_url }}"
-          >{{ dir | split: '-' | map: 'capitalize' | join: ' ' }}</a
-        >
+        <a href="{{ dir | relative_url }}">
+          {% if dir == "random-problems" %} Random Problems {% elsif dir ==
+          "sheets" %} DSA Sheets {% else %} {{ dir | split: '-' | map:
+          'capitalize' | join: ' ' }} {% endif %}
+        </a>
       </li>
       {% endunless %} {% endfor %}
+    </ul>
+  </div>
+
+  <div class="section-container">
+    <h2>Recent Problems</h2>
+    <ul class="problem-list">
+      {% assign problem_pages = site.pages | where_exp: "page", "page.path
+      contains '.md'" | where_exp: "page", "page.path != 'index.md'" |
+      where_exp: "page", "page.path != 'README.md'" | sort: "path" | reverse %}
+      {% assign counter = 0 %} {% for problem in problem_pages %} {% if counter
+      < 6 and problem.path contains 'arrays' or problem.path contains 'problems'
+      %} {% unless problem.path contains 'sheet.md' or problem.path contains
+      'index.md' %}
+      <li>
+        <a href="{{ problem.url | relative_url }}">
+          {{ problem.title | default: problem.path | split: '/' | last | split:
+          '.' | first | replace: '-', ' ' | capitalize }}
+        </a>
+      </li>
+      {% assign counter = counter | plus: 1 %} {% endunless %} {% endif %} {%
+      endfor %}
     </ul>
   </div>
 </div>

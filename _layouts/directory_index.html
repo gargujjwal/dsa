@@ -11,11 +11,15 @@ layout: default
   <ul>
     {% assign sorted_files = page.directory_files | sort: "title" %}
     {% for file in sorted_files %}
-      <li><a href="{{ file.url | relative_url }}">{{ file.title }}</a></li>
+      <li>
+        <a href="{{ file.url | relative_url }}">
+          {{ file.title | default: file.path | split: '/' | last | split: '.' | first | replace: '-', ' ' | capitalize }}
+        </a>
+      </li>
     {% endfor %}
   </ul>
   
   {% if page.dir != "/" %}
-    <p><a href="{{ "/" | relative_url }}">Back to Home</a></p>
+    <p><a href="{{ "/" | relative_url }}"><i class="fas fa-home"></i> Back to Home</a></p>
   {% endif %}
 </div>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}Ujjwal's DSA Notes</title>
+  <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrapper">
+      <a class="site-title" href="{{ "/" | relative_url }}">Ujjwal's DSA Notes</a>
+      <nav class="site-nav">
+        <a class="page-link" href="{{ "/sheets/apna-college-dsa-sheet" | relative_url }}">Apna College</a>
+        <a class="page-link" href="{{ "/sheets/dsa-sheet-by-love-babbar" | relative_url }}">Love Babbar Sheet</a>
+        <a class="page-link" href="{{ "/sheets/neetcode-150" | relative_url }}">NeetCode 150</a>
+        <a class="page-link" href="{{ "/sheets/strivers-sde-sheet" | relative_url }}">Striver's SDE Sheet</a>
+        <a class="page-link" href="{{ "/sheets/strivers-a2z-sheet" | relative_url }}">Striver's A2Z</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      {{ content }}
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrapper">
+      <div class="footer-col-wrapper">
+        <div class="footer-col">
+          <h2>DSA Sheets</h2>
+          <ul>
+            <li><a href="{{ "/sheets/apna-college-dsa-sheet" | relative_url }}">Apna College DSA Sheet</a></li>
+            <li><a href="{{ "/sheets/algopreps-151-problems-sheet" | relative_url }}">AlgoPreps 151</a></li>
+            <li><a href="{{ "/sheets/dsa-sheet-by-arsh" | relative_url }}">DSA Sheet by Arsh</a></li>
+            <li><a href="{{ "/sheets/dsa-sheet-by-love-babbar" | relative_url }}">Love Babbar Sheet</a></li>
+            <li><a href="{{ "/sheets/neetcode-150" | relative_url }}">NeetCode 150</a></li>
+            <li><a href="{{ "/sheets/strivers-a2z-sheet" | relative_url }}">Striver's A2Z Sheet</a></li>
+            <li><a href="{{ "/sheets/strivers-sde-sheet" | relative_url }}">Striver's SDE Sheet</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Coding Platforms</h2>
+          <ul>
+            <li><a href="{{ "/random-problems/leetcode" | relative_url }}">LeetCode</a></li>
+            <li><a href="{{ "/random-problems/codeforces" | relative_url }}">Codeforces</a></li>
+            <li><a href="{{ "/random-problems/codechef" | relative_url }}">CodeChef</a></li>
+            <li><a href="{{ "/random-problems/geeksforgeeks" | relative_url }}">GeeksforGeeks</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Links</h2>
+          <ul>
+            <li><a href="https://github.com/gargujjwal" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://leetcode.com/gargujjwal" target="_blank"><i class="fas fa-code"></i> LeetCode</a></li>
+            <li><a href="https://codeforces.com/profile/yourusername" target="_blank"><i class="fas fa-laptop-code"></i> Codeforces</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,32 @@
+---
+layout: default
+---
+
+<div class="sheet-page">
+  <h1>{{ page.title | default: page.path | split: '/' | last | split: '.' | first | split: '-' | map: 'capitalize' | join: ' ' }}</h1>
+  
+  {{ content }}
+  
+  <div class="sheet-info">
+    <h2>Problems in this sheet</h2>
+    {% if page.directory_problems.size > 0 %}
+      <ul class="problem-list">
+        {% assign sorted_problems = page.directory_problems | sort: "title" %}
+        {% for problem in sorted_problems %}
+          <li>
+            <a href="{{ problem.url | relative_url }}">
+              {{ problem.title | default: problem.path | split: '/' | last | split: '.' | first | replace: '-', ' ' | capitalize }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No problems have been added to this sheet yet.</p>
+    {% endif %}
+  </div>
+  
+  <div class="navigation-links">
+    <a href="{{ "/" | relative_url }}"><i class="fas fa-home"></i> Home</a>
+    <a href="{{ page.dir | relative_url }}"><i class="fas fa-arrow-up"></i> Up to {{ page.dir | split: '/' | last | split: '-' | map: 'capitalize' | join: ' ' }}</a>
+  </div>
+</div>
