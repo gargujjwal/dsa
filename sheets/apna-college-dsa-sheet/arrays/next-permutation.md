@@ -3,6 +3,8 @@ id: next-permutation
 aliases: []
 tags:
   - permutation
+layout: default
+title: Next Permutation
 ---
 
 # Next Permutation

@@ -2,6 +2,8 @@
 id: kth-largest-element-in-array
 aliases: []
 tags: []
+layout: default
+title: Kth Largest Element in Array
 ---
 
 # Kth Largest Element in Array

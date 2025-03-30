@@ -2,6 +2,8 @@
 id: contains-duplicate
 aliases: []
 tags: []
+layout: default
+title: Contains Duplicated
 ---
 
 # Contains Duplicated

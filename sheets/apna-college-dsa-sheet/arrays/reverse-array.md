@@ -2,6 +2,8 @@
 id: reverse-array
 aliases: []
 tags: []
+layout: default
+title: Reverse Array
 ---
 
 # Reverse Array

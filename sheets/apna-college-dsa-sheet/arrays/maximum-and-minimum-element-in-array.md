@@ -2,6 +2,8 @@
 id: maximum-and-minimum-element-in-array
 aliases: []
 tags: []
+layout: default
+title: Maximum And Minimum Element In Array
 ---
 
 # Maximum & Minimum Element in Array

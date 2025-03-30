@@ -2,6 +2,8 @@
 id: search-in-rotated-sorted-array
 aliases: []
 tags: []
+layout: default
+title: Search in Rotated Sorted Array
 ---
 
 # Search in Rotated Sorted Array

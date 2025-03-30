@@ -2,6 +2,8 @@
 id: repeat-and-missing-number-array
 aliases: []
 tags: []
+layout: default
+title: Repeat & Missing Number Array
 ---
 
 # Repeat & Missing Number Array

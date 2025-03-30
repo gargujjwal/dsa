@@ -2,6 +2,8 @@
 id: best-time-to-buy-and-sell-stock
 aliases: []
 tags: []
+layout: default
+title: Best Time to Buy and Sell Stock
 ---
 
 # Best Time to Buy and Sell Stock

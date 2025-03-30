@@ -2,6 +2,8 @@
 id: maximum-subarray
 aliases: []
 tags: []
+layout: default
+title: Maximum Sub-Array
 ---
 
 # Maximum Sub-Array

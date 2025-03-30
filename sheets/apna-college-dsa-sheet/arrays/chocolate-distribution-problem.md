@@ -2,6 +2,8 @@
 id: chocolate-distribution-problem
 aliases: []
 tags: []
+layout: default
+title: Chocolate Distribution Problem
 ---
 
 # Chocolate Distribution Problem

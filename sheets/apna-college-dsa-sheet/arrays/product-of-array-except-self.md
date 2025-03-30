@@ -2,6 +2,8 @@
 id: product-of-array-except-self
 aliases: []
 tags: []
+layout: default
+title: Product of Array Except Self
 ---
 
 # Product of Array Except Self
