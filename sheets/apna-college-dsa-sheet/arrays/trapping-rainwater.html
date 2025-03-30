@@ -1,0 +1,66 @@
+<h1 id="trapping-rainwater">Trapping Rainwater</h1>
+
+<h2 id="brute-solution">Brute Solution</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">trap</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="n">trapped_water</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">height</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># first find the height which is just bigger than left height
+</span>            <span class="n">least_max_height</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">maxsize</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">filled_spaces</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">height</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">height</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="ow">and</span> <span class="n">height</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">least_max_height</span><span class="p">:</span>
+                    <span class="n">least_max_height</span> <span class="o">=</span> <span class="n">height</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+                    <span class="k">break</span>
+                <span class="n">filled_spaces</span> <span class="o">+=</span> <span class="n">height</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+                <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="n">least_max_height</span> <span class="o">!=</span> <span class="n">sys</span><span class="p">.</span><span class="n">maxsize</span><span class="p">:</span>
+                <span class="n">trapped_water</span> <span class="o">+=</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="n">height</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+                    <span class="o">-</span> <span class="n">filled_spaces</span>
+                    <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">height</span><span class="p">[</span><span class="n">left</span><span class="p">])</span>
+                <span class="p">)</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="n">right</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># find the greatest minimum
+</span>            <span class="n">greatest_min</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">greatest_min_idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">filled_spaces</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">curr_filled_spaces</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">right</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="n">curr_filled_spaces</span> <span class="o">+=</span> <span class="n">height</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">height</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="ow">and</span> <span class="n">height</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">greatest_min</span><span class="p">:</span>
+                    <span class="n">greatest_min</span> <span class="o">=</span> <span class="n">height</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+                    <span class="n">greatest_min_idx</span> <span class="o">=</span> <span class="n">right</span>
+
+                    <span class="c1"># increment filled spaces and reset curr_filled_spaces
+</span>                    <span class="n">filled_spaces</span> <span class="o">+=</span> <span class="n">curr_filled_spaces</span>
+                    <span class="n">curr_filled_spaces</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">if</span> <span class="n">greatest_min_idx</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="n">trapped_water</span> <span class="o">+=</span> <span class="p">(</span>
+                <span class="n">greatest_min</span> <span class="o">*</span> <span class="p">(</span><span class="n">greatest_min_idx</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="o">-</span> <span class="n">filled_spaces</span>
+                <span class="o">-</span> <span class="n">greatest_min</span>
+            <span class="p">)</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">greatest_min_idx</span>
+
+        <span class="k">return</span> <span class="n">trapped_water</span>
+</code></pre></div></div>

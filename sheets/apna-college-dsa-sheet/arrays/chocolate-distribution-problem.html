@@ -1,0 +1,30 @@
+<h1 id="chocolate-distribution-problem">Chocolate Distribution Problem</h1>
+
+<ul>
+  <li>Since it order of packets doesn’t matter, we sort the arrays in ascending order
+to know where min and max lies in array.</li>
+  <li>Now <code class="language-plaintext highlighter-rouge">m</code> packets are to be distributed, so we create a <strong>sliding window</strong> of size
+<code class="language-plaintext highlighter-rouge">m</code> and check for the minimum difference of chocolates in that sliding window</li>
+  <li>On each iteration we slide the window by 1 until we reach end of array and
+we finally return the calculated minimum difference</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">findMinDiff</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">arr</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
+
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">maxsize</span>
+        <span class="c1"># now using sliding window
+</span>        <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="nf">len</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]</span> <span class="o">-</span> <span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">])</span>
+            <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">diff</span>
+</code></pre></div></div>

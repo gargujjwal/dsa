@@ -1,0 +1,45 @@
+<h1 id="best-time-to-buy-and-sell-stock">Best Time to Buy and Sell Stock</h1>
+
+<h2 id="brute-solution">Brute Solution</h2>
+
+<p>Calculate profit from all days starting from a day, compare it and keep the
+max profit</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">max_profit</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)):</span>
+                <span class="n">profit</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">max_profit</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">max_profit</span><span class="p">,</span> <span class="n">profit</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">max_profit</span>
+</code></pre></div></div>
+
+<h2 id="optimal-solution">Optimal Solution</h2>
+
+<ul>
+  <li>We take advantage of the fact that we can’t sell before buying,
+so while traversing the array, we keep track of lowest price seen and see the
+profit while while selling it at current price</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">min_price</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">max_profit</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">price</span> <span class="ow">in</span> <span class="n">prices</span><span class="p">:</span>
+            <span class="n">min_price</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="n">min_price</span><span class="p">)</span>
+            <span class="n">curr_profit</span> <span class="o">=</span> <span class="n">price</span> <span class="o">-</span> <span class="n">min_price</span>
+            <span class="n">max_profit</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">curr_profit</span><span class="p">,</span> <span class="n">max_profit</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">max_profit</span>
+</code></pre></div></div>
