@@ -6,62 +6,48 @@ layout: default
 title: Minimum in Rotated Sorted Array
 ---
 
-## Brute Solution T:O(n^2), S:O(n)
+## Brute Solution T:O(n), S:O(1)
 
 ```python
-from sys import maxsize
 from typing import List
 
 
 class Solution:
-    def maxProduct(self, nums: List[int]) -> int:
-        max_product = -maxsize - 1
-        for i in range(len(nums)):
-            prod = nums[i]
-
-            for j in range(i + 1, len(nums)):
-                max_product = max(max_product, prod)
-                prod *= nums[j]
-
-            max_product = max(max_product, prod)
-
-        return max_product
+    def findMin(self, nums: List[int]) -> int:
+        return min(nums)
 ```
 
-## Optimal Solution T:O(n), S:O(1)
+## Optimal Solution T:O(log n), S:O(1)
 
-This is observational approach, assume if all numbers in array were
-
-- **+ve**: then maximum product would be product of all sub-arrays
-- **even -ve**: same as above
-- **odd -ve**: then we need to check product of two subarrays, ie, either side
-  of every negative number
-- **with zero**: simply ignore the zeroes
-
-Below code does the same, as array iterates it calculates prefix and suffix,
-and checks which is bigger
+Using binary search, first find out which half of array is sorted and based on that
+find the minimum and shorten the search space
 
 ```python
+import sys
 from typing import List
-from sys import maxsize
 
 
 class Solution:
-    def maxProduct(self, nums: List[int]) -> int:
-        max_prod = -maxsize - 1
+    def findMin(self, nums: List[int]) -> int:
+        minimum = sys.maxsize
 
-        prefix = 1
-        suffix = 1
-        for i in range(len(nums)):
-            if prefix == 0:
-                prefix = 1
-            if suffix == 0:
-                suffix = 1
+        left = 0
+        right = len(nums) - 1
+        while left <= right:
+            mid = (left + right) >> 1
 
-            prefix *= nums[i]
-            suffix *= nums[len(nums) - 1 - i]
+            # already sorted array
+            if nums[left] <= nums[right]:
+                minimum = min(minimum, nums[left])
+                break
 
-            max_prod = max(prefix, suffix, max_prod)
+            # find out which part is sorted
+            if nums[left] <= nums[mid]:
+                minimum = min(minimum, nums[left])
+                left = mid + 1
+            else:
+                right = mid - 1
+                minimum = min(minimum, nums[mid])
 
-        return max_prod
+        return minimum
 ```
