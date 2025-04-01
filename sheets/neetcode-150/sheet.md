@@ -2,7 +2,7 @@
 id: sheet
 aliases: []
 tags: []
-layout: home
+layout: sheet
 title: Neetcode 150
 ---
 
