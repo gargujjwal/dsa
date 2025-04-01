@@ -23,64 +23,48 @@
 
   <main class="page-content">
     <div class="wrapper">
-      <h2 id="brute-solution-ton2-son">Brute Solution T:O(n^2), S:O(n)</h2>
+      <h2 id="brute-solution-ton-so1">Brute Solution T:O(n), S:O(1)</h2>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">sys</span> <span class="kn">import</span> <span class="n">maxsize</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">findMin</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nf">min</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="optimal-solution-tolog-n-so1">Optimal Solution T:O(log n), S:O(1)</h2>
+
+<p>Using binary search, first find out which half of array is sorted and based on that
+find the minimum and shorten the search space</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
 <span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 
 <span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">maxProduct</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="n">max_product</span> <span class="o">=</span> <span class="o">-</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
-            <span class="n">prod</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">findMin</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">minimum</span> <span class="o">=</span> <span class="n">sys</span><span class="p">.</span><span class="n">maxsize</span>
 
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
-                <span class="n">max_product</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">max_product</span><span class="p">,</span> <span class="n">prod</span><span class="p">)</span>
-                <span class="n">prod</span> <span class="o">*=</span> <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">:</span>
+            <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
 
-            <span class="n">max_product</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">max_product</span><span class="p">,</span> <span class="n">prod</span><span class="p">)</span>
+            <span class="c1"># already sorted array
+</span>            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">]:</span>
+                <span class="n">minimum</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">minimum</span><span class="p">,</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">])</span>
+                <span class="k">break</span>
 
-        <span class="k">return</span> <span class="n">max_product</span>
-</code></pre></div></div>
+            <span class="c1"># find out which part is sorted
+</span>            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]:</span>
+                <span class="n">minimum</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">minimum</span><span class="p">,</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">])</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">minimum</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">minimum</span><span class="p">,</span> <span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">])</span>
 
-<h2 id="optimal-solution-ton-so1">Optimal Solution T:O(n), S:O(1)</h2>
-
-<p>This is observational approach, assume if all numbers in array were</p>
-
-<ul>
-  <li><strong>+ve</strong>: then maximum product would be product of all sub-arrays</li>
-  <li><strong>even -ve</strong>: same as above</li>
-  <li><strong>odd -ve</strong>: then we need to check product of two subarrays, ie, either side
-of every negative number</li>
-  <li><strong>with zero</strong>: simply ignore the zeroes</li>
-</ul>
-
-<p>Below code does the same, as array iterates it calculates prefix and suffix,
-and checks which is bigger</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="kn">from</span> <span class="n">sys</span> <span class="kn">import</span> <span class="n">maxsize</span>
-
-
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">maxProduct</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="n">max_prod</span> <span class="o">=</span> <span class="o">-</span><span class="n">maxsize</span> <span class="o">-</span> <span class="mi">1</span>
-
-        <span class="n">prefix</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="n">suffix</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">prefix</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">prefix</span> <span class="o">=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="n">suffix</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">suffix</span> <span class="o">=</span> <span class="mi">1</span>
-
-            <span class="n">prefix</span> <span class="o">*=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="n">suffix</span> <span class="o">*=</span> <span class="n">nums</span><span class="p">[</span><span class="nf">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">]</span>
-
-            <span class="n">max_prod</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">max_prod</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">max_prod</span>
+        <span class="k">return</span> <span class="n">minimum</span>
 </code></pre></div></div>
 
     </div>
