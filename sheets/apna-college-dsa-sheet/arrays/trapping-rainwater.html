@@ -23,9 +23,26 @@
 
   <main class="page-content">
     <div class="wrapper">
-      <h1 id="trapping-rainwater">Trapping Rainwater</h1>
+      <h2 id="brute-solution-ton2-so1">Brute Solution T:O(n^2), S:O(1)</h2>
 
-<h2 id="brute-solution">Brute Solution</h2>
+<p>This solution is thought by me, but should not be used as this is unnecessary
+complex solution</p>
+
+<ul>
+  <li>In this approach: Amount of water collected is thought as total free area bw
+two towers. Also, we take the lowest height of the tower and calculate area as
+<strong>min(height of tower 1, height of tower 2) * distance apart - filled spaces</strong>
+    <ul>
+      <li>So for every iteration we try to find a tower which is just bigger or equal
+to current tower towards right, if we find it, then we increase trapped_water
+by net area covered as aforementioned</li>
+      <li>If we fail to find lowest minimum then we try to find a tower which is
+just smaller than the current tower. Now we calculate net area just as before</li>
+      <li>After this, we start next iteration from the tower found at right</li>
+    </ul>
+  </li>
+  <li>I think this solution is <code class="language-plaintext highlighter-rouge">O(n)</code> on average case although i am not sure</li>
+</ul>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">sys</span>
 <span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
@@ -86,6 +103,116 @@
                 <span class="o">-</span> <span class="n">greatest_min</span>
             <span class="p">)</span>
             <span class="n">left</span> <span class="o">=</span> <span class="n">greatest_min_idx</span>
+
+        <span class="k">return</span> <span class="n">trapped_water</span>
+</code></pre></div></div>
+
+<h2 id="better-solution-ton-so2n">Better Solution T:O(n), S:O(2n)</h2>
+
+<ul>
+  <li>In this approach we define the water collecting on an idx basis, meaning
+we calculate the water that will be collected over a single tower, add it up
+and present the solution</li>
+  <li>We calculate the water on a tower by considering tower of maximum height on
+either side, i.e., for idx i, the water collected on that space would be
+<strong>min(tower of maximum height towards its left side, tower of maximum height
+towards its right side) - height[i]</strong></li>
+  <li>We can calculate the left maximum tower for each index and store it in array
+and do the same for right maximum tower</li>
+  <li>Now just iterate over each tower and calc the water and return ans</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">trap</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="n">trapped_water</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># calculate left prefix maximum
+</span>        <span class="n">left_prefix_max</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+        <span class="n">left_prefix_max</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">height</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">left_prefix_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">left_prefix_max</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="c1"># calculate right prefix maximum
+</span>        <span class="n">right_prefix_max</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+        <span class="n">right_prefix_max</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">height</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">right_prefix_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">right_prefix_max</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="c1"># now using both these calculate trapped water
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">trapped_water</span> <span class="o">+=</span> <span class="nf">min</span><span class="p">(</span><span class="n">left_prefix_max</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">right_prefix_max</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">trapped_water</span>
+</code></pre></div></div>
+
+<h2 id="even-better-solution-ton-son">Even Better Solution T:O(n), S:O(n)</h2>
+
+<ul>
+  <li>Building on previous solution, we don’t need two arrays as we can calculate
+<code class="language-plaintext highlighter-rouge">left_prefix_max</code> as we iterate over the array so now we use only <strong>O(n)</strong> space
+instead of <strong>O(2n)</strong> space</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">trap</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="n">trapped_water</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># calculate right prefix maximum
+</span>        <span class="n">right_prefix_max</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+        <span class="n">right_prefix_max</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">height</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">right_prefix_max</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">right_prefix_max</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="c1"># calculate left prefix maximum as u iterate
+</span>        <span class="n">left_prefix_max</span> <span class="o">=</span> <span class="n">height</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">left_prefix_max</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">left_prefix_max</span><span class="p">,</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">trapped_water</span> <span class="o">+=</span> <span class="nf">min</span><span class="p">(</span><span class="n">left_prefix_max</span><span class="p">,</span> <span class="n">right_prefix_max</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">trapped_water</span>
+</code></pre></div></div>
+
+<h2 id="optimal-solution-ton-so1">Optimal Solution T:O(n), S:O(1)</h2>
+
+<p>Building on previous solution we use two pointer approach to reduce space complexity</p>
+
+<ul>
+  <li>Keeping pointers on either sides (<code class="language-plaintext highlighter-rouge">left</code>, <code class="language-plaintext highlighter-rouge">right</code>) we can keep track of tower
+of maximum height on both sides. Now for index we can calculate water trapped by
+which-ever side as lowest maximum - height[i].</li>
+  <li>In this approach we always make sure that we process which ever side is smaller
+so if left_max is smaller, we process left idx and vice versa if right_max is
+smaller, we process right idx.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">trap</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">trapped_water</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">height</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">l_max</span> <span class="o">=</span> <span class="n">height</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
+        <span class="n">r_max</span> <span class="o">=</span> <span class="n">height</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+            <span class="n">l_max</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">l_max</span><span class="p">,</span> <span class="n">height</span><span class="p">[</span><span class="n">left</span><span class="p">])</span>
+            <span class="n">r_max</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">r_max</span><span class="p">,</span> <span class="n">height</span><span class="p">[</span><span class="n">right</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="n">l_max</span> <span class="o">&lt;</span> <span class="n">r_max</span><span class="p">:</span>
+                <span class="n">trapped_water</span> <span class="o">+=</span> <span class="n">l_max</span> <span class="o">-</span> <span class="n">height</span><span class="p">[</span><span class="n">left</span><span class="p">]</span>
+                <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">trapped_water</span> <span class="o">+=</span> <span class="n">r_max</span> <span class="o">-</span> <span class="n">height</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+                <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
 
         <span class="k">return</span> <span class="n">trapped_water</span>
 </code></pre></div></div>
