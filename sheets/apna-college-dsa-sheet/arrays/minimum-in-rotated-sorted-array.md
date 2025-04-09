@@ -19,8 +19,8 @@ class Solution:
 
 ## Optimal Solution T:O(log n), S:O(1)
 
-Using binary search, first find out which half of array is sorted and based on that
-find the minimum and shorten the search space
+Using binary search, first find out which half of array is sorted and based on
+that find the minimum and shorten the search space
 
 ```python
 import sys
