@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ujjwal's DSA Notes | Ujjwal's DSA Notes</title>
+  <title>Form the Largest Number | Ujjwal's DSA Notes</title>
   <link rel="stylesheet" href="/dsa/assets/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -23,81 +23,21 @@
 
   <main class="page-content">
     <div class="wrapper">
-      <div class="home">
-  <h1>Ujjwal's DSA Notes</h1>
+      <h2 id="optimal-ton-log-n-so1">Optimal T:O(n log n) S:O(1)</h2>
 
-  <h2 id="welcome-to-my-dsa-notes">Welcome to My DSA Notes</h2>
-
-<p>This repository contains my solutions and notes for various DSA problems and
-sheets. Use the navigation menu to explore different problem collections or
-scroll down to see recently added problems.</p>
-
-<h3 id="about-this-site">About This Site</h3>
-
-<p>This is a collection of Data Structures and Algorithms problems I’ve solved from
-various platforms and curated sheets. Each problem includes my solution along
-with any relevant notes or explanations.</p>
-
-<h3 id="getting-started">Getting Started</h3>
-
-<ul>
-  <li>Browse <strong>DSA Sheets</strong> for structured problem collections</li>
-  <li>Check out <strong>Random Problems</strong> for miscellaneous problems from various platforms</li>
-  <li>Use the navigation bar at the top to quickly access popular problem sheets</li>
-</ul>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">cmp_to_key</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 
-  <div class="section-container">
-    <h2>Explore DSA Problems</h2>
-    <ul class="directory-tree">
-                                                                                           
-    </ul>
-  </div>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">findLargest</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">ans</span> <span class="o">=</span>  <span class="sh">""</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="nf">sorted</span><span class="p">(</span><span class="nf">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">arr</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="nf">cmp_to_key</span><span class="p">(</span><span class="n">Solution</span><span class="p">.</span><span class="n">_custom_cmp</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">0</span><span class="sh">"</span> <span class="k">if</span> <span class="n">ans</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sh">"</span><span class="s">0</span><span class="sh">"</span> <span class="k">else</span> <span class="n">ans</span>
 
-  <div class="section-container">
-    <h2>Recent Problems</h2>
-    <ul class="problem-list">
-      
-                                 
-      <li>
-        <a href="/dsa/sheets/apna-college-dsa-sheet/arrays/trapping-rainwater.html">
-          Trapping rainwater
-        </a>
-      </li>
-           
-      <li>
-        <a href="/dsa/sheets/apna-college-dsa-sheet/arrays/three-sum.html">
-          Three sum
-        </a>
-      </li>
-           
-      <li>
-        <a href="/dsa/sheets/apna-college-dsa-sheet/arrays/search-in-rotated-sorted-array.html">
-          Search in rotated sorted array
-        </a>
-      </li>
-           
-      <li>
-        <a href="/dsa/sheets/apna-college-dsa-sheet/arrays/reverse-array.html">
-          Reverse array
-        </a>
-      </li>
-           
-      <li>
-        <a href="/dsa/sheets/apna-college-dsa-sheet/arrays/repeat-and-missing-number-array.html">
-          Repeat & missing number array
-        </a>
-      </li>
-           
-      <li>
-        <a href="/dsa/sheets/apna-college-dsa-sheet/arrays/product-of-array-except-self.html">
-          Product of array except self
-        </a>
-      </li>
-                                           
-    </ul>
-  </div>
-</div>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_custom_cmp</span><span class="p">(</span><span class="n">first</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sec</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">first</span> <span class="o">+</span> <span class="n">sec</span> <span class="o">&gt;</span> <span class="n">sec</span> <span class="o">+</span> <span class="n">first</span> <span class="k">else</span> <span class="mi">1</span>
+</code></pre></div></div>
 
     </div>
   </main>

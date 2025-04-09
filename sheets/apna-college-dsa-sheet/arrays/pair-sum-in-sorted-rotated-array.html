@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pair Sum in Sorted Rotated Array | Ujjwal's DSA Notes</title>
+  <link rel="stylesheet" href="/dsa/assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrapper">
+      <a class="site-title" href="/dsa/">Ujjwal's DSA Notes</a>
+      <nav class="site-nav">
+        <a class="page-link" href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College</a>
+        <a class="page-link" href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a>
+        <a class="page-link" href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a>
+        <a class="page-link" href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a>
+        <a class="page-link" href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      <h2 id="optimized-ton-log-n-so1">Optimized, T:O(n log n), S:O(1)</h2>
+
+<p>We sort the array and leverage the fact that array is sorted by keeping two ptrs
+one on left and other on right extreme, then we try to find <code class="language-plaintext highlighter-rouge">sum = arr[left] + arr[right]</code>
+and if sum is less than target then to increase sum, we increment left ptr.
+If sum is greater than target then we decrement right ptr. We do this, until
+we find a pair whose sum is equal to target or until left and right ptr meet</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">pairInSortedRotated</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">target</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">arr</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+            <span class="nb">sum</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">sum</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">:</span>
+                <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="nb">sum</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+                <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<h2 id="optimal-ton-so1">Optimal, T:O(n), S:O(1)</h2>
+
+<p>Same as above but we first find pivot then do above algo</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">pairInSortedRotated</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">target</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="c1"># find the pivot pt first
+</span>        <span class="n">pvt_idx</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_find_pvt_idx</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+        <span class="c1"># assign both pointers
+</span>        <span class="k">if</span> <span class="n">pvt_idx</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">pvt_idx</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">pvt_idx</span> <span class="o">-</span> <span class="mi">1</span>
+
+        <span class="k">while</span> <span class="n">left</span> <span class="o">!=</span> <span class="n">right</span><span class="p">:</span>
+            <span class="n">curr_sum</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">curr_sum</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+                <span class="c1"># increment left
+</span>                <span class="k">if</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">left</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">curr_sum</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">:</span>
+                <span class="c1"># decrement right
+</span>                <span class="k">if</span> <span class="n">right</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">right</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">_find_pvt_idx</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrapper">
+      <div class="footer-col-wrapper">
+        <div class="footer-col">
+          <h2>DSA Sheets</h2>
+          <ul>
+            <li><a href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College DSA Sheet</a></li>
+            <li><a href="/dsa/sheets/algopreps-151-problems-sheet/sheet">AlgoPreps 151</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-arsh/sheet">DSA Sheet by Arsh</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a></li>
+            <li><a href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a></li>
+            <li><a href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z Sheet</a></li>
+            <li><a href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Coding Platforms</h2>
+          <ul>
+            <li><a href="/dsa/random-problems/leetcode">LeetCode</a></li>
+            <li><a href="/dsa/random-problems/codeforces">Codeforces</a></li>
+            <li><a href="/dsa/random-problems/codechef">CodeChef</a></li>
+            <li><a href="/dsa/random-problems/geeksforgeeks">GeeksforGeeks</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Links</h2>
+          <ul>
+            <li><a href="https://github.com/gargujjwal" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://leetcode.com/gargujjwal" target="_blank"><i class="fas fa-code"></i> LeetCode</a></li>
+            <li><a href="https://codeforces.com/profile/yourusername" target="_blank"><i class="fas fa-laptop-code"></i> Codeforces</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
