@@ -1,4 +1,10 @@
 {
   "cSpell.words": ["elif", "nums", "ptrs", "subarray"],
-  "workbench.editor.showTabs": "multiple"
+  "workbench.editor.showTabs": "multiple",
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  }
 }
