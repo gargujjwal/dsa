@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Longest Subarray with Sum Divisible by K | Ujjwal's DSA Notes</title>
+  <link rel="stylesheet" href="/dsa/assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrapper">
+      <a class="site-title" href="/dsa/">Ujjwal's DSA Notes</a>
+      <nav class="site-nav">
+        <a class="page-link" href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College</a>
+        <a class="page-link" href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a>
+        <a class="page-link" href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a>
+        <a class="page-link" href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a>
+        <a class="page-link" href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      <h2 id="brute-solution-ton2-so1">Brute Solution T:O(n^2) S:O(1)</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">longestSubarrayDivK</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">max_subarray</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)):</span>
+            <span class="n">curr_sum</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)):</span>
+                <span class="n">curr_sum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">curr_sum</span> <span class="o">%</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">max_subarray</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">max_subarray</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">max_subarray</span>
+
+</code></pre></div></div>
+
+<h2 id="optimized-solution-ton-sominn-k">Optimized Solution T:O(n) S:O(min(n, k))</h2>
+
+<h3 id="observations">Observations</h3>
+
+<ul>
+  <li>for array 5, 2, 1, 4, 7, 8, 2, 5, and k=3 we can write remainders of cumulative sum
+and represent them as shown in the table.</li>
+  <li>Notice when we find the same remainder we can just subtract their representation
+and we will get a multiple of 3, ex: 3x2+2 - 3x1+2 = 3, which is 2 + 1.</li>
+  <li>This will be the logic of our code, too</li>
+  <li>
+    <p>For -ve cum sum, the remainders can be -ve, we can write them in similar
+fashion with +ve remainders, for which we can just add k to it</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Array</th>
+          <th style="text-align: center">5</th>
+          <th style="text-align: center">2</th>
+          <th style="text-align: center">1</th>
+          <th style="text-align: center">4</th>
+          <th style="text-align: center">7</th>
+          <th style="text-align: center">8</th>
+          <th style="text-align: center">2</th>
+          <th style="text-align: center">5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cum Sum</td>
+          <td style="text-align: center">5</td>
+          <td style="text-align: center">7</td>
+          <td style="text-align: center">8</td>
+          <td style="text-align: center">12</td>
+          <td style="text-align: center">19</td>
+          <td style="text-align: center">27</td>
+          <td style="text-align: center">29</td>
+          <td style="text-align: center">34</td>
+        </tr>
+        <tr>
+          <td>Remainder</td>
+          <td style="text-align: center">2</td>
+          <td style="text-align: center">1</td>
+          <td style="text-align: center">2</td>
+          <td style="text-align: center">0</td>
+          <td style="text-align: center">1</td>
+          <td style="text-align: center">0</td>
+          <td style="text-align: center">2</td>
+          <td style="text-align: center">1</td>
+        </tr>
+        <tr>
+          <td> </td>
+          <td style="text-align: center">3x1+2</td>
+          <td style="text-align: center">3x2+1</td>
+          <td style="text-align: center">3x2+2</td>
+          <td style="text-align: center">3x4</td>
+          <td style="text-align: center">3x6+1</td>
+          <td style="text-align: center">3x9</td>
+          <td style="text-align: center">3x9+2</td>
+          <td style="text-align: center">3x11+1</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="explanation">Explanation</h3>
+
+<ul>
+  <li>We create a hashmap of remainders and as we iterate through the array
+we calculate the cumulative sum and remainder for it (if remainder &lt; 0, then we
+increment it by k)</li>
+  <li>If remainder is 0, then max length will from starting of the array</li>
+  <li>If remainder is found in the hashmap, then we can calculate the length as
+<code class="language-plaintext highlighter-rouge">i - hashmap[remainder]</code></li>
+  <li>If remainder is not found, then we set the key as remainder and val as i</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">longestSubarrayDivK</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">max_len</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">remainder_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
+
+    <span class="n">curr_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+        <span class="n">curr_sum</span> <span class="o">+=</span> <span class="n">val</span>
+        <span class="n">curr_rem</span> <span class="o">=</span> <span class="n">curr_sum</span> <span class="o">%</span> <span class="n">k</span>
+
+        <span class="c1"># if remainder gets negative then make it positive
+</span>        <span class="k">if</span> <span class="n">curr_rem</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">curr_rem</span> <span class="o">+=</span> <span class="n">k</span>
+
+        <span class="c1"># find if any other subarray had the same remainder
+</span>        <span class="k">if</span> <span class="n">curr_rem</span> <span class="ow">in</span> <span class="n">remainder_map</span><span class="p">:</span>
+            <span class="n">max_len</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">max_len</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">remainder_map</span><span class="p">[</span><span class="n">curr_rem</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">remainder_map</span><span class="p">[</span><span class="n">curr_rem</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+    <span class="k">return</span> <span class="n">max_len</span>
+</code></pre></div></div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrapper">
+      <div class="footer-col-wrapper">
+        <div class="footer-col">
+          <h2>DSA Sheets</h2>
+          <ul>
+            <li><a href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College DSA Sheet</a></li>
+            <li><a href="/dsa/sheets/algopreps-151-problems-sheet/sheet">AlgoPreps 151</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-arsh/sheet">DSA Sheet by Arsh</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a></li>
+            <li><a href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a></li>
+            <li><a href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z Sheet</a></li>
+            <li><a href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Coding Platforms</h2>
+          <ul>
+            <li><a href="/dsa/random-problems/leetcode">LeetCode</a></li>
+            <li><a href="/dsa/random-problems/codeforces">Codeforces</a></li>
+            <li><a href="/dsa/random-problems/codechef">CodeChef</a></li>
+            <li><a href="/dsa/random-problems/geeksforgeeks">GeeksforGeeks</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Links</h2>
+          <ul>
+            <li><a href="https://github.com/gargujjwal" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://leetcode.com/gargujjwal" target="_blank"><i class="fas fa-code"></i> LeetCode</a></li>
+            <li><a href="https://codeforces.com/profile/yourusername" target="_blank"><i class="fas fa-laptop-code"></i> Codeforces</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
