@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Longest Subarray with 0 Sum | Ujjwal's DSA Notes</title>
+  <link rel="stylesheet" href="/dsa/assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrapper">
+      <a class="site-title" href="/dsa/">Ujjwal's DSA Notes</a>
+      <nav class="site-nav">
+        <a class="page-link" href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College</a>
+        <a class="page-link" href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a>
+        <a class="page-link" href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a>
+        <a class="page-link" href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a>
+        <a class="page-link" href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      <h2 id="brute-solution">Brute Solution</h2>
+
+<ul>
+  <li>Generate all the sub-arrays and find their sum</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">maxLen</span><span class="p">(</span><span class="n">arr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="n">curr_sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+            <span class="n">curr_sum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">curr_sum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ans</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div></div>
+
+<h2 id="optimal-solution">Optimal Solution</h2>
+
+<ul>
+  <li>Observation
+    <ul>
+      <li>Take array [15, -2, 2, -8, 1, 7, 10, 23] and look at prefix sum (sum:idx)
+[15:0, 13:1, 15:2, 7:3, 8:4, 15:5, 25:6, 48:7], when prefix-sum repeats you can just subtract
+current index and the index that it occurred previously to get maximum
+subarray</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">maxLen</span><span class="p">(</span><span class="n">arr</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="c1"># cumulative sum / prefix sum
+</span>    <span class="n">cum_sum</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nf">dict</span><span class="p">()</span>
+
+    <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">curr_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="n">curr_sum</span><span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">curr_sum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># check if that sum has been seen before
+</span>        <span class="k">if</span> <span class="n">curr_sum</span> <span class="ow">in</span> <span class="n">cum_sum</span><span class="p">:</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">cum_sum</span><span class="p">[</span><span class="n">curr_sum</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cum_sum</span><span class="p">[</span><span class="n">curr_sum</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+    <span class="k">return</span> <span class="n">ans</span>
+</code></pre></div></div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrapper">
+      <div class="footer-col-wrapper">
+        <div class="footer-col">
+          <h2>DSA Sheets</h2>
+          <ul>
+            <li><a href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College DSA Sheet</a></li>
+            <li><a href="/dsa/sheets/algopreps-151-problems-sheet/sheet">AlgoPreps 151</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-arsh/sheet">DSA Sheet by Arsh</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a></li>
+            <li><a href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a></li>
+            <li><a href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z Sheet</a></li>
+            <li><a href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Coding Platforms</h2>
+          <ul>
+            <li><a href="/dsa/random-problems/leetcode">LeetCode</a></li>
+            <li><a href="/dsa/random-problems/codeforces">Codeforces</a></li>
+            <li><a href="/dsa/random-problems/codechef">CodeChef</a></li>
+            <li><a href="/dsa/random-problems/geeksforgeeks">GeeksforGeeks</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Links</h2>
+          <ul>
+            <li><a href="https://github.com/gargujjwal" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://leetcode.com/gargujjwal" target="_blank"><i class="fas fa-code"></i> LeetCode</a></li>
+            <li><a href="https://codeforces.com/profile/yourusername" target="_blank"><i class="fas fa-laptop-code"></i> Codeforces</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
