@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["elif", "nums", "ptrs", "subarray"],
+  "cSpell.words": ["elif", "nums", "ptrs", "subarray", "subarrays"],
   "workbench.editor.showTabs": "multiple",
   "github.copilot.enable": {
     "*": false,
