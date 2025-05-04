@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/aggressive-cows.html</loc>
+</url>
+<url>
 <loc>https://gargujjwal.github.io/dsa/sheets/apna-college-dsa-sheet/arrays/best-time-to-buy-and-sell-stock.html</loc>
 </url>
 <url>
 <loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/binary-search.html</loc>
+</url>
+<url>
+<loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/book-allocation-problem.html</loc>
+</url>
+<url>
+<loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/capacity-to-shop-within-d-days.html</loc>
 </url>
 <url>
 <loc>https://gargujjwal.github.io/dsa/sheets/apna-college-dsa-sheet/arrays/chocolate-distribution-problem.html</loc>
@@ -31,6 +40,9 @@
 <loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/find-out-how-many-times-array-is-rotated.html</loc>
 </url>
 <url>
+<loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/find-smallest-divisor-given-a-threshold.html</loc>
+</url>
+<url>
 <loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/first-and-last-position-in-sorted-array.html</loc>
 </url>
 <url>
@@ -46,7 +58,13 @@
 <loc>https://gargujjwal.github.io/dsa/</loc>
 </url>
 <url>
+<loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/kokos-eating-banans.html</loc>
+</url>
+<url>
 <loc>https://gargujjwal.github.io/dsa/sheets/apna-college-dsa-sheet/arrays/kth-largest-element-in-array.html</loc>
+</url>
+<url>
+<loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/kth-missing-positive-integer.html</loc>
 </url>
 <url>
 <loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/arrays/left-rotate-array-k-places.html</loc>
@@ -79,6 +97,9 @@
 <loc>https://gargujjwal.github.io/dsa/sheets/apna-college-dsa-sheet/arrays/merge-overlapping-intervals.html</loc>
 </url>
 <url>
+<loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/minimum-days-to-make-m-bouqets.html</loc>
+</url>
+<url>
 <loc>https://gargujjwal.github.io/dsa/sheets/apna-college-dsa-sheet/arrays/minimum-in-rotated-sorted-array.html</loc>
 </url>
 <url>
@@ -86,6 +107,9 @@
 </url>
 <url>
 <loc>https://gargujjwal.github.io/dsa/sheets/apna-college-dsa-sheet/arrays/next-permutation.html</loc>
+</url>
+<url>
+<loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/nth-root.html</loc>
 </url>
 <url>
 <loc>https://gargujjwal.github.io/dsa/sheets/apna-college-dsa-sheet/arrays/pair-sum-in-sorted-rotated-array.html</loc>
@@ -154,6 +178,9 @@
 <loc>https://gargujjwal.github.io/dsa/sheets/apna-college-dsa-sheet/arrays/space-optimization-using-bit-manipulation.html</loc>
 </url>
 <url>
+<loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/square-root.html</loc>
+</url>
+<url>
 <loc>https://gargujjwal.github.io/dsa/sheets/apna-college-dsa-sheet/arrays/three-sum.html</loc>
 </url>
 <url>
@@ -166,10 +193,10 @@
 <loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/upper-bound.html</loc>
 </url>
 <url>
-<loc>https://gargujjwal.github.io/dsa/sheets/apna-college-dsa-sheet/arrays/</loc>
+<loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/</loc>
 </url>
 <url>
-<loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/binary-search/</loc>
+<loc>https://gargujjwal.github.io/dsa/sheets/apna-college-dsa-sheet/arrays/</loc>
 </url>
 <url>
 <loc>https://gargujjwal.github.io/dsa/sheets/strivers-a2z-sheet/arrays/</loc>

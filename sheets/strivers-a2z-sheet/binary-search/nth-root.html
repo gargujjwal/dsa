@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nth Root | Ujjwal's DSA Notes</title>
+  <link rel="stylesheet" href="/dsa/assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrapper">
+      <a class="site-title" href="/dsa/">Ujjwal's DSA Notes</a>
+      <nav class="site-nav">
+        <a class="page-link" href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College</a>
+        <a class="page-link" href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a>
+        <a class="page-link" href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a>
+        <a class="page-link" href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a>
+        <a class="page-link" href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      <h2 id="brute-solution-ton-log-n">Brute Solution, T:O(n log n)</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">NthRoot</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+        <span class="n">exp</span> <span class="o">=</span> <span class="nf">pow</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exp</span> <span class="o">==</span> <span class="n">m</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">i</span>
+        <span class="k">elif</span> <span class="n">exp</span> <span class="o">&gt;</span> <span class="n">m</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<h2 id="optimal-solution">Optimal Solution</h2>
+
+<ul>
+  <li>
+    <p>Refer <code class="language-plaintext highlighter-rouge">sqrt</code> solution</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">NthRoot</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">m</span>
+    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">:</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+        <span class="c1"># exponent
+</span>        <span class="n">exp</span> <span class="o">=</span> <span class="nf">pow</span><span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exp</span> <span class="o">==</span> <span class="n">m</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mid</span>
+        <span class="k">elif</span> <span class="n">exp</span> <span class="o">&gt;</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Since I am using python, below approach isn’t necessary but languages with
+datatypes having finite storage like 64 bits or 32 bits, it won’t work as
+<code class="language-plaintext highlighter-rouge">pow(mid, n)</code> might overflow for large numbers</li>
+  <li>
+    <p>To remedy this, we only need to compare if mid when multiplied n times
+with <code class="language-plaintext highlighter-rouge">m</code>, but for that we need not calculate it fully so, I created a new function
+<code class="language-plaintext highlighter-rouge">cmp_nth_pow_of_mid_with_m</code> which just compares and tells me what i need to
+know</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># returns -1 if mid ^ n &lt; m
+# returns  0 if mid ^ n == m
+# returns  1 if mid ^ n &gt; m
+</span><span class="k">def</span> <span class="nf">cmp_nth_pow_of_mid_with_m</span><span class="p">(</span><span class="n">mid</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">exp</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">exp</span> <span class="o">*=</span> <span class="n">mid</span>
+        <span class="k">if</span> <span class="n">exp</span> <span class="o">==</span> <span class="n">m</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">exp</span> <span class="o">&gt;</span> <span class="n">m</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">NthRoot</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">m</span>
+    <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">:</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+        <span class="c1"># exponent
+</span>        <span class="n">exp</span> <span class="o">=</span> <span class="nf">cmp_nth_pow_of_mid_with_m</span><span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exp</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mid</span>
+        <span class="k">elif</span> <span class="n">exp</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrapper">
+      <div class="footer-col-wrapper">
+        <div class="footer-col">
+          <h2>DSA Sheets</h2>
+          <ul>
+            <li><a href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College DSA Sheet</a></li>
+            <li><a href="/dsa/sheets/algopreps-151-problems-sheet/sheet">AlgoPreps 151</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-arsh/sheet">DSA Sheet by Arsh</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a></li>
+            <li><a href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a></li>
+            <li><a href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z Sheet</a></li>
+            <li><a href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Coding Platforms</h2>
+          <ul>
+            <li><a href="/dsa/random-problems/leetcode">LeetCode</a></li>
+            <li><a href="/dsa/random-problems/codeforces">Codeforces</a></li>
+            <li><a href="/dsa/random-problems/codechef">CodeChef</a></li>
+            <li><a href="/dsa/random-problems/geeksforgeeks">GeeksforGeeks</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Links</h2>
+          <ul>
+            <li><a href="https://github.com/gargujjwal" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://leetcode.com/gargujjwal" target="_blank"><i class="fas fa-code"></i> LeetCode</a></li>
+            <li><a href="https://codeforces.com/profile/yourusername" target="_blank"><i class="fas fa-laptop-code"></i> Codeforces</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
