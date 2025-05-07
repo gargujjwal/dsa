@@ -8,41 +8,92 @@ title: Book Allocation Problem
 
 ## Brute Solution
 
+```python
+class Solution:
+    def findPages(self, arr: List[int], k: int) -> int:
+        n = len(arr)
+        if k == n:
+            # no of students equals no of books
+            return max(arr)
+        elif k > n:
+            # no of students > no of books
+            return -1
+        elif k == 1:
+            # all books allocated to one person
+            return sum(arr)
+
+        # find the limits
+        min_page_lim = arr[0]
+        max_page_lim = 0
+        for i in range(n):
+            min_page_lim = max(min_page_lim, arr[i])
+            max_page_lim += arr[i]
+
+        for i in range(min_page_lim, max_page_lim + 1):
+            if self.count_students(arr, i) == k:
+                return i
+
+        return -1
+
+    def count_students(self, arr: List[int], page_limit: int) -> int:
+        prev_pages = 0
+        students = 1
+
+        for i in arr:
+            if prev_pages + i <= page_limit:
+                prev_pages += i
+            else:
+                students += 1
+                prev_pages = i
+
+        return students
+```
+
 ## Optimal Solution
 
 ```python
 class Solution:
     def findPages(self, arr: List[int], k: int) -> int:
-        # book allocation impossible
-        if k > len(arr):
+        n = len(arr)
+        if k == n:
+            # no of students equals no of books
+            return max(arr)
+        elif k > n:
+            # no of students > no of books
             return -1
         elif k == 1:
+            # all books allocated to one person
             return sum(arr)
-        elif k == len(arr):
-            return max(arr)
 
-        low = max(arr)
-        high = sum(arr)
-        while low <= high:
-            mid = (low + high) >> 1
-            students = self.countStudents(arr, mid)
-            if students > k:
-                low = mid + 1
-            else:
-                high = mid - 1
-        return low
-
-    def countStudents(self, arr: List[int], pages: int):
-        n = len(arr)  # size of array
-        students = 1
-        pagesStudent = 0
+        # find the limits
+        min_page_lim = arr[0]
+        max_page_lim = 0
         for i in range(n):
-            if pagesStudent + arr[i] <= pages:
-                # add pages to current student
-                pagesStudent += arr[i]
+            min_page_lim = max(min_page_lim, arr[i])
+            max_page_lim += arr[i]
+
+        left = min_page_lim
+        right = max_page_lim
+        while left <= right:
+            mid = (left + right) >> 1
+
+            if self.count_students(arr, mid) > k:
+                left = mid + 1
             else:
-                # add pages to next student
+                right = mid - 1
+
+        return left
+
+    def count_students(self, arr: List[int], page_limit: int) -> int:
+        prev_pages = 0
+        students = 1
+
+        for i in arr:
+            if prev_pages + i <= page_limit:
+                prev_pages += i
+            else:
                 students += 1
-                pagesStudent = arr[i]
+                prev_pages = i
+
         return students
 ```
