@@ -53,40 +53,49 @@
 <h2 id="optimal-solution-ton-log-n--n-log-maxstalls">Optimal Solution, T:O(n log n + n log max(stalls))</h2>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">aggressiveCows</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">stalls</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">cows</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="n">stalls</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">aggressiveCows</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">stalls</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="nf">len</span><span class="p">(</span><span class="n">stalls</span><span class="p">):</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="c1"># sort stalls to keep calc of consecutive distance easy,
+</span>        <span class="c1"># also doing this i only have to worry about consecutive cows, cuz
+</span>        <span class="c1"># non-consecutive will be much further apart
+</span>        <span class="n">stalls</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
 
-        <span class="c1"># set the limits
+        <span class="c1"># configure limits for binary search
+</span>        <span class="c1"># find the min dist and max dist between stalls
+</span>        <span class="n">min_dist</span> <span class="o">=</span> <span class="n">maxsize</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">stalls</span><span class="p">)):</span>
+            <span class="n">dist</span> <span class="o">=</span> <span class="n">stalls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">stalls</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">min_dist</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">min_dist</span><span class="p">,</span> <span class="n">dist</span><span class="p">)</span>
+
+        <span class="n">left</span> <span class="o">=</span> <span class="n">min_dist</span>
+        <span class="c1"># max distance would be diff bw most further stall and first stall
+</span>        <span class="c1"># in which I would only be able to house 2 cows
 </span>        <span class="n">right</span> <span class="o">=</span> <span class="n">stalls</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">stalls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">left</span> <span class="o">=</span> <span class="n">stalls</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">stalls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">stalls</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="c1"># find the minimum gap bw stalls
-</span>            <span class="n">diff</span> <span class="o">=</span> <span class="n">stalls</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">stalls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="n">left</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">diff</span><span class="p">)</span>
-        <span class="n">left</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-        <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="n">min_dist</span>
         <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">:</span>
             <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span>
 
-            <span class="k">if</span> <span class="n">self</span><span class="p">.</span><span class="nf">can_place_cows</span><span class="p">(</span><span class="n">stalls</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">cows</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">self</span><span class="p">.</span><span class="nf">_can_settle_cows</span><span class="p">(</span><span class="n">stalls</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">mid</span><span class="p">):</span>
                 <span class="n">ans</span> <span class="o">=</span> <span class="n">mid</span>
                 <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+
         <span class="k">return</span> <span class="n">ans</span>
 
-    <span class="k">def</span> <span class="nf">can_place_cows</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">stalls</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">dist</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">cows</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="c1"># place first cow at first index
-</span>        <span class="n">prev_cow</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">cows</span> <span class="o">-=</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">stalls</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">stalls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">stalls</span><span class="p">[</span><span class="n">prev_cow</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">dist</span><span class="p">:</span>
-                <span class="n">prev_cow</span> <span class="o">=</span> <span class="n">i</span>
-                <span class="n">cows</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">def</span> <span class="nf">_can_settle_cows</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">stalls</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">cows</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">min_dist</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="c1"># assign one cow to first stall
+</span>        <span class="n">cows</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">prev_cow</span> <span class="o">=</span> <span class="n">stalls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">stalls</span><span class="p">)):</span>
             <span class="k">if</span> <span class="n">cows</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">True</span>
+            <span class="c1"># dist bw two cows should be &gt;= min_dist
+</span>            <span class="k">if</span> <span class="n">stalls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">prev_cow</span> <span class="o">&gt;=</span> <span class="n">min_dist</span><span class="p">:</span>
+                <span class="n">prev_cow</span> <span class="o">=</span> <span class="n">stalls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">cows</span> <span class="o">-=</span> <span class="mi">1</span>
 
         <span class="k">return</span> <span class="bp">False</span>
 </code></pre></div></div>

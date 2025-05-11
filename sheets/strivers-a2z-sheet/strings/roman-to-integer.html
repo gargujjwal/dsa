@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roman to Integer | Ujjwal's DSA Notes</title>
+  <link rel="stylesheet" href="/dsa/assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrapper">
+      <a class="site-title" href="/dsa/">Ujjwal's DSA Notes</a>
+      <nav class="site-nav">
+        <a class="page-link" href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College</a>
+        <a class="page-link" href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a>
+        <a class="page-link" href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a>
+        <a class="page-link" href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a>
+        <a class="page-link" href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      <h2 id="roman-to-integer">Roman to Integer</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">Character</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">roman</span> <span class="o">=</span> <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
+            <span class="sc">'I'</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span>
+            <span class="sc">'V'</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span>
+            <span class="sc">'X'</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span>
+            <span class="sc">'L'</span><span class="o">,</span> <span class="mi">50</span><span class="o">,</span>
+            <span class="sc">'C'</span><span class="o">,</span> <span class="mi">100</span><span class="o">,</span>
+            <span class="sc">'D'</span><span class="o">,</span> <span class="mi">500</span><span class="o">,</span>
+            <span class="sc">'M'</span><span class="o">,</span> <span class="mi">1000</span><span class="o">);</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">romanToInt</span><span class="o">(</span><span class="nc">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">ans</span> <span class="o">+=</span> <span class="n">roman</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="c1">// next character to c</span>
+            <span class="kt">char</span> <span class="n">d</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+
+            <span class="c1">// special rules</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">'I'</span><span class="o">)</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">d</span> <span class="o">==</span> <span class="sc">'V'</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">ans</span> <span class="o">+=</span> <span class="mi">4</span><span class="o">;</span>
+                    <span class="n">i</span><span class="o">++;</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">d</span> <span class="o">==</span> <span class="sc">'X'</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">ans</span> <span class="o">+=</span> <span class="mi">9</span><span class="o">;</span>
+                    <span class="n">i</span><span class="o">++;</span>
+                <span class="o">}</span> <span class="k">else</span>
+                    <span class="n">ans</span> <span class="o">+=</span> <span class="n">roman</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+            <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">'X'</span><span class="o">)</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">d</span> <span class="o">==</span> <span class="sc">'L'</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">ans</span> <span class="o">+=</span> <span class="mi">40</span><span class="o">;</span>
+                    <span class="n">i</span><span class="o">++;</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">d</span> <span class="o">==</span> <span class="sc">'C'</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">ans</span> <span class="o">+=</span> <span class="mi">90</span><span class="o">;</span>
+                    <span class="n">i</span><span class="o">++;</span>
+                <span class="o">}</span> <span class="k">else</span>
+                    <span class="n">ans</span> <span class="o">+=</span> <span class="n">roman</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+            <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">'C'</span><span class="o">)</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">d</span> <span class="o">==</span> <span class="sc">'D'</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">ans</span> <span class="o">+=</span> <span class="mi">400</span><span class="o">;</span>
+                    <span class="n">i</span><span class="o">++;</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">d</span> <span class="o">==</span> <span class="sc">'M'</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">ans</span> <span class="o">+=</span> <span class="mi">900</span><span class="o">;</span>
+                    <span class="n">i</span><span class="o">++;</span>
+                <span class="o">}</span> <span class="k">else</span>
+                    <span class="n">ans</span> <span class="o">+=</span> <span class="n">roman</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+            <span class="k">else</span>
+                <span class="n">ans</span> <span class="o">+=</span> <span class="n">roman</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">ans</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="integer-to-roman">Integer to Roman</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">roman</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="s">""</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"I"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="s">"IV"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="s">"IX"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="s">"V"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="s">"X"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">40</span><span class="o">,</span> <span class="s">"XL"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">90</span><span class="o">,</span> <span class="s">"XC"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">50</span><span class="o">,</span> <span class="s">"L"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">100</span><span class="o">,</span> <span class="s">"C"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">400</span><span class="o">,</span> <span class="s">"CD"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">900</span><span class="o">,</span> <span class="s">"CM"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">500</span><span class="o">,</span> <span class="s">"D"</span><span class="o">);</span>
+        <span class="n">roman</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="mi">1000</span><span class="o">,</span> <span class="s">"M"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">intToRoman</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">tenPow</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">num</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">lastDig</span> <span class="o">=</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">10</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">eqNum</span> <span class="o">=</span> <span class="n">lastDig</span> <span class="o">*</span> <span class="n">tenPow</span><span class="o">;</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">roman</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">eqNum</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">reverse</span><span class="o">(</span><span class="n">roman</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">eqNum</span><span class="o">)));</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">closestNum</span> <span class="o">=</span> <span class="n">findClosestNum</span><span class="o">(</span><span class="n">eqNum</span><span class="o">);</span>
+                <span class="nc">String</span> <span class="n">romanForClosestNum</span> <span class="o">=</span> <span class="n">intToRoman</span><span class="o">(</span><span class="n">eqNum</span> <span class="o">-</span> <span class="n">closestNum</span><span class="o">);</span>
+                <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">reverse</span><span class="o">(</span><span class="n">romanForClosestNum</span><span class="o">));</span>
+                <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">reverse</span><span class="o">(</span><span class="n">roman</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">closestNum</span><span class="o">)));</span>
+            <span class="o">}</span>
+
+            <span class="n">tenPow</span> <span class="o">*=</span> <span class="mi">10</span><span class="o">;</span>
+            <span class="n">num</span> <span class="o">/=</span> <span class="mi">10</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">sb</span><span class="o">.</span><span class="na">reverse</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">StringBuilder</span> <span class="nf">reverse</span><span class="o">(</span><span class="nc">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">StringBuilder</span><span class="o">(</span><span class="n">s</span><span class="o">).</span><span class="na">reverse</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// finds closest smaller number in roman map</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">findClosestNum</span><span class="o">(</span><span class="kt">int</span> <span class="n">eqNum</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">closestNum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">diff</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">var</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">roman</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">currDiff</span> <span class="o">=</span> <span class="n">eqNum</span> <span class="o">-</span> <span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">currDiff</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">currDiff</span> <span class="o">&lt;</span> <span class="n">diff</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">closestNum</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">();</span>
+                <span class="n">diff</span> <span class="o">=</span> <span class="n">currDiff</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">closestNum</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrapper">
+      <div class="footer-col-wrapper">
+        <div class="footer-col">
+          <h2>DSA Sheets</h2>
+          <ul>
+            <li><a href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College DSA Sheet</a></li>
+            <li><a href="/dsa/sheets/algopreps-151-problems-sheet/sheet">AlgoPreps 151</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-arsh/sheet">DSA Sheet by Arsh</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a></li>
+            <li><a href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a></li>
+            <li><a href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z Sheet</a></li>
+            <li><a href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Coding Platforms</h2>
+          <ul>
+            <li><a href="/dsa/random-problems/leetcode">LeetCode</a></li>
+            <li><a href="/dsa/random-problems/codeforces">Codeforces</a></li>
+            <li><a href="/dsa/random-problems/codechef">CodeChef</a></li>
+            <li><a href="/dsa/random-problems/geeksforgeeks">GeeksforGeeks</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Links</h2>
+          <ul>
+            <li><a href="https://github.com/gargujjwal" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://leetcode.com/gargujjwal" target="_blank"><i class="fas fa-code"></i> LeetCode</a></li>
+            <li><a href="https://codeforces.com/profile/yourusername" target="_blank"><i class="fas fa-laptop-code"></i> Codeforces</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

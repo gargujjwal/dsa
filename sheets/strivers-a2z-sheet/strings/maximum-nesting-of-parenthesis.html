@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ujjwal's DSA Notes | Ujjwal's DSA Notes</title>
+  <title>Maximum Nesting of Parenthesis | Ujjwal's DSA Notes</title>
   <link rel="stylesheet" href="/dsa/assets/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -23,81 +23,26 @@
 
   <main class="page-content">
     <div class="wrapper">
-      <div class="home">
-  <h1>Ujjwal's DSA Notes</h1>
+      <h2 id="solution">Solution</h2>
 
-  <h2 id="welcome-to-my-dsa-notes">Welcome to My DSA Notes</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">maxDepth</span><span class="o">(</span><span class="nc">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
 
-<p>This repository contains my solutions and notes for various DSA problems and
-sheets. Use the navigation menu to explore different problem collections or
-scroll down to see recently added problems.</p>
-
-<h3 id="about-this-site">About This Site</h3>
-
-<p>This is a collection of Data Structures and Algorithms problems I’ve solved from
-various platforms and curated sheets. Each problem includes my solution along
-with any relevant notes or explanations.</p>
-
-<h3 id="getting-started">Getting Started</h3>
-
-<ul>
-  <li>Browse <strong>DSA Sheets</strong> for structured problem collections</li>
-  <li>Check out <strong>Random Problems</strong> for miscellaneous problems from various platforms</li>
-  <li>Use the navigation bar at the top to quickly access popular problem sheets</li>
-</ul>
-
-
-  <div class="section-container">
-    <h2>Explore DSA Problems</h2>
-    <ul class="directory-tree">
-                                                                                                                                                                                                                                                                           
-    </ul>
-  </div>
-
-  <div class="section-container">
-    <h2>Recent Problems</h2>
-    <ul class="problem-list">
-      
-                                                                                                                                 
-      <li>
-        <a href="/dsa/sheets/strivers-a2z-sheet/binary-search/median-of-two-sorted-arrays.html">
-          Median of two sorted arrays
-        </a>
-      </li>
-                 
-      <li>
-        <a href="/dsa/sheets/strivers-a2z-sheet/binary-search/kth-elements-of-two-arrays.html">
-          Kth element of two arrays
-        </a>
-      </li>
-                                   
-      <li>
-        <a href="/dsa/sheets/strivers-a2z-sheet/arrays/three-sum.html">
-          Three sum
-        </a>
-      </li>
-           
-      <li>
-        <a href="/dsa/sheets/strivers-a2z-sheet/arrays/reverse-pairs.html">
-          Reverser pairs
-        </a>
-      </li>
-           
-      <li>
-        <a href="/dsa/sheets/strivers-a2z-sheet/arrays/rearrange-array-elements-by-sign.html">
-          Rearrange array elements by sign
-        </a>
-      </li>
-           
-      <li>
-        <a href="/dsa/sheets/strivers-a2z-sheet/arrays/pascals-triangle.html">
-          Pascals triangle
-        </a>
-      </li>
-                                                                                             
-    </ul>
-  </div>
-</div>
+        <span class="kt">int</span> <span class="n">lvl</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">'('</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">lvl</span><span class="o">++;</span>
+                <span class="n">ans</span> <span class="o">=</span> <span class="nc">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">ans</span><span class="o">,</span> <span class="n">lvl</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">')'</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">lvl</span><span class="o">--;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">ans</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
 
     </div>
   </main>

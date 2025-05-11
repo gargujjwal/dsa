@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sort LL of 0 1 2 | Ujjwal's DSA Notes</title>
+  <link rel="stylesheet" href="/dsa/assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrapper">
+      <a class="site-title" href="/dsa/">Ujjwal's DSA Notes</a>
+      <nav class="site-nav">
+        <a class="page-link" href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College</a>
+        <a class="page-link" href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a>
+        <a class="page-link" href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a>
+        <a class="page-link" href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a>
+        <a class="page-link" href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="wrapper">
+      <h2 id="optimal-solution">Optimal Solution</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* class Node
+{
+    int data;
+    Node next;
+    Node(int data)
+    {
+        this.data = data;
+        next = null;
+    }
+}*/</span>
+<span class="kd">class</span> <span class="nc">Solution</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="nc">Node</span> <span class="nf">segregate</span><span class="o">(</span><span class="nc">Node</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// create new ll of each number</span>
+        <span class="nc">Node</span> <span class="n">zeroHead</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+        <span class="nc">Node</span> <span class="n">zeroTail</span> <span class="o">=</span> <span class="n">zeroHead</span><span class="o">;</span>
+        <span class="nc">Node</span> <span class="n">oneHead</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+        <span class="nc">Node</span> <span class="n">oneTail</span> <span class="o">=</span> <span class="n">oneHead</span><span class="o">;</span>
+        <span class="nc">Node</span> <span class="n">twoHead</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="nc">Node</span> <span class="n">twoTail</span> <span class="o">=</span> <span class="n">twoHead</span><span class="o">;</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="nc">Node</span> <span class="n">i</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;)</span> <span class="o">{</span>
+            <span class="nc">Node</span> <span class="n">nxt</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="c1">// add to respective ll</span>
+            <span class="k">switch</span> <span class="o">(</span><span class="n">i</span><span class="o">.</span><span class="na">data</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+                    <span class="n">zeroTail</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+                    <span class="n">zeroTail</span> <span class="o">=</span> <span class="n">zeroTail</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+                    <span class="n">oneTail</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+                    <span class="n">oneTail</span> <span class="o">=</span> <span class="n">oneTail</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+                    <span class="n">twoTail</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+                    <span class="n">twoTail</span> <span class="o">=</span> <span class="n">twoTail</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">nxt</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="c1">// end all ll</span>
+        <span class="n">oneTail</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">twoTail</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="c1">// if there is no one, then attach twoHead</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">oneHead</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">zeroTail</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">oneHead</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">zeroTail</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">twoHead</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="c1">// connect oneTail to twoHead</span>
+        <span class="n">oneTail</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">twoHead</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+
+        <span class="k">return</span> <span class="n">zeroHead</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrapper">
+      <div class="footer-col-wrapper">
+        <div class="footer-col">
+          <h2>DSA Sheets</h2>
+          <ul>
+            <li><a href="/dsa/sheets/apna-college-dsa-sheet/sheet">Apna College DSA Sheet</a></li>
+            <li><a href="/dsa/sheets/algopreps-151-problems-sheet/sheet">AlgoPreps 151</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-arsh/sheet">DSA Sheet by Arsh</a></li>
+            <li><a href="/dsa/sheets/dsa-sheet-by-love-babbar/sheet">Love Babbar Sheet</a></li>
+            <li><a href="/dsa/sheets/neetcode-150/sheet">NeetCode 150</a></li>
+            <li><a href="/dsa/sheets/strivers-a2z-sheet/sheet">Striver's A2Z Sheet</a></li>
+            <li><a href="/dsa/sheets/strivers-sde-sheet/sheet">Striver's SDE Sheet</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Coding Platforms</h2>
+          <ul>
+            <li><a href="/dsa/random-problems/leetcode">LeetCode</a></li>
+            <li><a href="/dsa/random-problems/codeforces">Codeforces</a></li>
+            <li><a href="/dsa/random-problems/codechef">CodeChef</a></li>
+            <li><a href="/dsa/random-problems/geeksforgeeks">GeeksforGeeks</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h2>Links</h2>
+          <ul>
+            <li><a href="https://github.com/gargujjwal" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+            <li><a href="https://leetcode.com/gargujjwal" target="_blank"><i class="fas fa-code"></i> LeetCode</a></li>
+            <li><a href="https://codeforces.com/profile/yourusername" target="_blank"><i class="fas fa-laptop-code"></i> Codeforces</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
