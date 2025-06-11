@@ -70,5 +70,4 @@ class Solution {
     return true;
   }
 }
-
 ```
