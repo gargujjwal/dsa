@@ -56,7 +56,7 @@ class Solution {
     // no queen in both diagonal
     // goes in North-West diagonal, then South East diagonal then
     // North-East Diagonal, then South West diagonal
-    int[][] directions = {{-1, -1}, {1, 1}, {-1, 1}, {1, -1}};
+    int[][] directions = new int[][]{{-1, -1}, {1, 1}, {-1, 1}, {1, -1}};
     for (int[] d : directions) {
       int r = row + d[0];
       int c = col + d[1];
