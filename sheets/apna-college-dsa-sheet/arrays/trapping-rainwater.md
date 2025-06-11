@@ -166,12 +166,9 @@ Building on previous solution we use two pointer approach to reduce space comple
   which-ever side as lowest maximum - height\[i\].
 - In this approach we always make sure that we process which ever side is smaller
   so if left_max is smaller, we process left idx and vice versa if right_max is
-  smaller, we process right idx.
+  smaller, we process right idx
 
 ```python
-from typing import List
-
-
 class Solution:
     def trap(self, height: List[int]) -> int:
         trapped_water = 0
